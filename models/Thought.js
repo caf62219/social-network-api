@@ -19,7 +19,7 @@ const reactionSchema = new mongoose.Schema(
             type: Date,
             default: Date.now,
             // use getter method to format timestamp on query
-            get: createdAtVal => dateFormat(createdAtVal)
+            get: (date) => date.toLocaleDateString("en-US")
         }
     },
     {
@@ -41,7 +41,7 @@ const thoughtSchema = new mongoose.Schema(
             type: Date,
             default: Date.now,
             // use getter method to format timestamp on query
-            get: createdAtVal => dateFormat(createdAtVal)
+            get: (date) => date.toLocaleDateString("en-US")
         },
         username: {
             type: String,

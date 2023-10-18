@@ -1,4 +1,5 @@
 const Thought = require('../models/Thought');
+const User = require('../models/User');
 
 module.exports = {
     // GET /api/thoughts
@@ -15,7 +16,7 @@ module.exports = {
     async getThoughtById(req, res) {
         try{       
             const thought = await Thought.findOne({ _id: req.params.thoughtId })
-            .select
+            .select('-__v')
             .populate('reactions');
             if (!thought) {
                return res.status(404).json({ message: 'No thought found with this id!' });
