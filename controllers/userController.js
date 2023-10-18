@@ -15,7 +15,9 @@ module.exports = {
     async getUserById(req, res) {
         try{
             const user = await User.findOne({ _id: req.params.userId });
-            
+            .populate('friends')
+            .populate('thoughts')
+            .select('-__v');
             if (!user) {
                return res.status(404).json({ message: 'No user found with this id!' });
             }
