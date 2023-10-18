@@ -73,7 +73,7 @@ module.exports = {
         }
     },
     // POST /api/thoughts/:thoughtId/reactions   // add reaction to thought
-    async createReachtion(req, res) {
+    async createReaction(req, res) {
         try{
             const thought = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId },
