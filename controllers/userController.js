@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Thought = require('../models/Thought');
 
 module.exports = {
     // GET /api/users
@@ -41,7 +42,7 @@ module.exports = {
     // PUT /api/users/:userId
     async updateUser(req, res) {
         try{
-            const user= await User.findOneAndUdate (
+            const user= await User.findOneAndUpdate (
                 { _id: req.params.userId },
                 { $set: req.body },
                 { new: true, runValidators: true }
@@ -98,7 +99,7 @@ module.exports = {
             const friend = await User.findOneAndDelete({ _id: req.params.userId },
                 { $pull: { friends: req.params.friendId } },
                 { new: true });
-            if (!user) {
+            if (!friend) {
                 return res.status(404).json({ message: 'No user found with this id!' });
             }
         } catch (err) {
