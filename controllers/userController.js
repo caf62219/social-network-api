@@ -14,7 +14,7 @@ module.exports = {
 // GET /api/users/:userId
     async getUserById(req, res) {
         try{
-            const user = await User.findOne({ _id: req.params.userId });
+            const user = await User.findOne({ _id: req.params.userId })
             .populate('friends')
             .populate('thoughts')
             .select('-__v');
@@ -56,6 +56,7 @@ module.exports = {
         }
     }, 
     // DELETE /api/users/:userId
+    //Bonus: Remove a user's associated thoughts when deleted.  
     async deleteUser(req, res) {
         try{
             const user = await User.findOneAndDelete({ _id: req.params.userId });

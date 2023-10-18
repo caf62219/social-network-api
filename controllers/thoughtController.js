@@ -14,7 +14,9 @@ module.exports = {
 // GET /api/thoughts/:thoughtId
     async getThoughtById(req, res) {
         try{       
-            const thought = await Thought.findOne({ _id: req.params.thoughtId });
+            const thought = await Thought.findOne({ _id: req.params.thoughtId })
+            .select
+            .populate('reactions');
             if (!thought) {
                return res.status(404).json({ message: 'No thought found with this id!' });
             }
@@ -28,6 +30,13 @@ module.exports = {
     async createThought(req, res) {
         try{
             const thought = await Thought.create(req.body);
+            const user = await User.findOneAndUpdate(
+                { _id: req.body.userId },
+                { $push: { thoughts: thought._id } },
+                { new: true });
+            if (!user) {
+                return res.status(404).json({ message: 'No user found with this id!' });
+            }
             res.json(thought);
         } catch (err) {
             console.log(err);
@@ -62,3 +71,38 @@ module.exports = {
             console.log(err);
             res.status(500).json(err);
         }
+    },
+    // POST /api/thoughts/:thoughtId/reactions   // add reaction to thought
+    async createReachtion(req, res) {
+        try{
+            const thought = await Thought.findOneAndUpdate(
+                { _id: req.params.thoughtId },
+                { $push: { reactions: req.body } },
+                { new: true, runValidators: true });
+            if (!thought) {
+                return res.status(404).json({ message: 'No thought found with this id!' });
+            }
+            res.json(thought);
+        } catch (err) {
+            console.log(err);
+            res.status(500).json(err);
+        }
+    },
+    // DELETE /api/thoughts/:thoughtId/reactions/:reactionId   // remove reaction from thought
+    async deleteReaction(req, res) {
+        try{
+            const thought = await Thought.findOneAndUpdate(
+                { _id: req.params.thoughtId },
+                { $pull: { reactions: { reactionId: req.params.reactionId } } },
+                { new: true });
+            if (!thought) {
+                return res.status(404).json({ message: 'No thought found with this id!' });
+            }
+            res.json({ message: 'Reaction deleted!' });
+        } catch (err) {
+            console.log(err);
+            res.status(500).json(err);
+        }
+    }
+
+}
