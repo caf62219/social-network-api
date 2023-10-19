@@ -28,7 +28,8 @@ The Social Networkign API uses the following packages:
 
 To install this application you need to download the code, install the dependencies and then perform npm start in the terminal.  From there the user can use insomnia to test the routes and add data to the database.
 
-Follow the following URL to the video demonstrating the functionality
+Follow the following URL to the video demonstrating the functionality: https://drive.google.com/file/d/1t4u6g_PlofJNhMwP_xwiwypGutaPXLDR/view
+
 
 ## Usage
 
