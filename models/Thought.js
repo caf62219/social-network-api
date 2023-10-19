@@ -1,5 +1,7 @@
+//requring mongoose
 const mongoose = require('mongoose');
 
+//creating a reaction schema. This will only have a schema not a model.  It will be nested in the thought schema
 const reactionSchema = new mongoose.Schema(
     {
         reactionId: {
@@ -29,6 +31,7 @@ const reactionSchema = new mongoose.Schema(
     }
 );
 
+//creating a thought schema
 const thoughtSchema = new mongoose.Schema(
     {
         thoughtText: {
@@ -64,8 +67,10 @@ thoughtSchema.virtual('reactionCount').get(function() {
     return this.reactions.length;
 });
 
+//creating the thought model using the thought schema
 const Thought = mongoose.model('Thought', thoughtSchema);
 
+//exporting the thought model
 module.exports = Thought;
 
 

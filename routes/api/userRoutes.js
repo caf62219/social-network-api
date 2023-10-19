@@ -1,4 +1,7 @@
+// require in express router
 const router = require('express').Router();
+
+//require in the api routes
 const {
     getAllUsers,
     getUserById,

@@ -1,4 +1,8 @@
+// Purpose: to create the routes for the thoughts
+//require in express router
 const router = require('express').Router();
+
+//require in the api routes
 const {
     getAllThoughts,
     getThoughtById,

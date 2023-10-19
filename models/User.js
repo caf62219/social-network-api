@@ -1,11 +1,13 @@
+//requiring in mongoose
 const {Schema, model}= require('mongoose');
-//schema to create User model
 
+//function to validate email
 const validateEmail = function(email) {
   const regex= /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
   return regex.test(email);
 }
 
+//schema to create User model
 const userSchema = new Schema (
     {
         username: {

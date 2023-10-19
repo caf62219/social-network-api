@@ -1,3 +1,4 @@
+//requiring in the models
 const Thought = require('../models/Thought');
 const User = require('../models/User');
 
